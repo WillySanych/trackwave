@@ -1,0 +1,15 @@
+services:
+  pgsql:
+    container_name: pgsql
+    image: postgres:16.2-alpine
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      PGDATA: /data/postgres
+      POSTGRES_DB: trackwave
+    volumes:
+      - ./pgdata/trackwave/:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
