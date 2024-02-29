@@ -2,6 +2,7 @@ package com.willysancyh.trackwave.controller;
 
 import com.willysancyh.trackwave.entity.AudioEntity;
 import com.willysancyh.trackwave.entity.FileEntity;
+import com.willysancyh.trackwave.model.RangeHeaderModel;
 import com.willysancyh.trackwave.service.audio.AudioService;
 import com.willysancyh.trackwave.service.file.FileService;
 import com.willysancyh.trackwave.service.headers.HeadersService;
@@ -39,8 +40,10 @@ public class AudioController {
     ) {
         AudioEntity audioEntity = audioService.getAudioEntity(audioId);
         FileEntity audioFileEntity = audioEntity.getFile();
-        HttpHeaders responseHeaders = headersService.getHeadersForFile(audioFileEntity);
-        StreamingResponseBody responseStream = fileService.getStreamingResponseBodyForFile(audioFileEntity);
+
+        RangeHeaderModel rangeHeaderModel = headersService.getRangeHeaderModel(rangeHeader, audioFileEntity);
+        HttpHeaders responseHeaders = headersService.getHeadersForFile(rangeHeaderModel, audioFileEntity);
+        StreamingResponseBody responseStream = fileService.getFileStream(audioFileEntity, rangeHeaderModel);
 
         return new ResponseEntity<>(responseStream, responseHeaders, HttpStatus.PARTIAL_CONTENT);
     }
