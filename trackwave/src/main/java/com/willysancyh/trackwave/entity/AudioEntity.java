@@ -1,5 +1,6 @@
 package com.willysancyh.trackwave.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class AudioEntity {
     @GeneratedValue(generator = "audio_seq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "audio_seq", allocationSize = 1, initialValue = 1)
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "file_id")
     private FileEntity file;
 

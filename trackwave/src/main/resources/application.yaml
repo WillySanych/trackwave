@@ -20,3 +20,6 @@ spring:
 async:
   corePoolSize: 10
   maxPoolSize: 10
+
+storage:
+  location: ./storage/
