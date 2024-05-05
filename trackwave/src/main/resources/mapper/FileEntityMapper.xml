@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.willysancyh.trackwave.mapper.FileEntityMapper">
+
+    <resultMap id="FileEntityMap" type="com.willysancyh.trackwave.entity.FileEntity">
+        <result property="id"     column="ID"/>
+        <result property="path"   column="PATH"/>
+    </resultMap>
+
+    <insert id="insertFileEntity" keyColumn="id" keyProperty="id" parameterType="com.willysancyh.trackwave.entity.FileEntity">
+        <selectKey keyProperty="id" resultType="java.lang.Long" order="BEFORE">
+            SELECT nextval('FILE_SEQ')
+        </selectKey>
+        INSERT INTO FILE(ID, PATH)
+        VALUES (#{id}, #{path})
+    </insert>
+</mapper>

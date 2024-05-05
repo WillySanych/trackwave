@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.willysancyh.trackwave.mapper.AudioEntityMapper">
+
+    <resultMap id="AudioEntityMap" type="com.willysancyh.trackwave.entity.AudioEntity">
+          <result property="id"                  column="ID"/>
+          <result property="name"    column="NAME"/>
+          <result property="author"   column="AUTHOR"/>
+          <association property="fileEntity" resultMap="com.willysancyh.trackwave.mapper.FileEntityMapper.FileEntityMap" columnPrefix="file_"/>
+        </resultMap>
+
+    <select id="findById" resultMap="AudioEntityMap">
+        SELECT a.ID AS ID,
+               a.AUTHOR AS AUTHOR,
+               a.NAME AS NAME,
+               f.ID AS file_ID,
+               f.PATH as file_PATH
+        FROM AUDIO a
+        LEFT JOIN FILE f ON f.ID = a.FILE_ID
+        WHERE a.ID = {id}
+    </select>
+
+    <select id="findAllBySearchCondition" resultMap="AudioEntityMap">
+        SELECT a.ID AS ID,
+            a.AUTHOR AS AUTHOR,
+            a.NAME AS NAME,
+            f.ID AS file_ID,
+            f.PATH as file_PATH
+        FROM AUDIO a
+        LEFT JOIN FILE f ON f.ID = a.FILE_ID
+        WHERE 1 = 1
+            ${searchCondition}
+        ORDER BY a.ID
+    </select>
+
+    <insert id="insertAudioEntity" keyColumn="id" keyProperty="id" parameterType="com.willysancyh.trackwave.entity.AudioEntity">
+        <selectKey keyProperty="id" resultType="java.lang.Long" order="BEFORE">
+            SELECT nextval('AUDIO_SEQ')
+        </selectKey>
+        INSERT INTO AUDIO(ID, FILE_ID, AUTHOR, NAME)
+        VALUES (#{id}, #{fileEntity.id}, #{author}, #{name})
+    </insert>
+</mapper>

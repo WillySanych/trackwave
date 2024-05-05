@@ -1,28 +1,11 @@
 package com.willysancyh.trackwave.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-
-import java.io.File;
-
-@Entity
-@Table(name = "audio")
 public class AudioEntity {
 
-    @Id
-    @GeneratedValue(generator = "audio_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "audio_seq", allocationSize = 1, initialValue = 1)
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "file_id")
-    private FileEntity file;
+    private FileEntity fileEntity;
+    private String name;
+    private String author;
 
     public Long getId() {
         return id;
@@ -32,19 +15,37 @@ public class AudioEntity {
         this.id = id;
     }
 
-    public FileEntity getFile() {
-        return file;
+    public FileEntity getFileEntity() {
+        return fileEntity;
     }
 
-    public void setFile(FileEntity file) {
-        this.file = file;
+    public void setFileEntity(FileEntity fileEntity) {
+        this.fileEntity = fileEntity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     @Override
     public String toString() {
         return "AudioEntity{" +
                 "id=" + id +
-                ", file=" + file +
+                ", file=" + fileEntity +
+                ", name='" + name + '\'' +
+                ", author='" + author + '\'' +
                 '}';
     }
 }

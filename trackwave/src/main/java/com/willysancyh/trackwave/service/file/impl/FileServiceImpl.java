@@ -1,5 +1,6 @@
 package com.willysancyh.trackwave.service.file.impl;
 
+import com.willysancyh.trackwave.dao.FileEntityDao;
 import com.willysancyh.trackwave.entity.FileEntity;
 import com.willysancyh.trackwave.exception.EmptyFileException;
 import com.willysancyh.trackwave.exception.SaveFileToStorageException;
@@ -8,7 +9,6 @@ import com.willysancyh.trackwave.properties.StorageProperties;
 import com.willysancyh.trackwave.service.file.FileService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
@@ -23,9 +23,14 @@ import java.util.UUID;
 public class FileServiceImpl implements FileService {
 
     private final StorageProperties storageProperties;
+    private final FileEntityDao fileEntityDao;
 
-    public FileServiceImpl(StorageProperties storageProperties) {
+    public FileServiceImpl(
+            StorageProperties storageProperties,
+            FileEntityDao fileEntityDao
+            ) {
         this.storageProperties = storageProperties;
+        this.fileEntityDao = fileEntityDao;
     }
 
     @PostConstruct
@@ -85,6 +90,11 @@ public class FileServiceImpl implements FileService {
         } else {
             throw new EmptyFileException(multipartFile.getOriginalFilename());
         }
-        return fileEntity;
+
+        return saveFileEntity(fileEntity);
+    }
+
+    private FileEntity saveFileEntity(FileEntity fileEntity) {
+        return fileEntityDao.saveFileEntity(fileEntity);
     }
 }

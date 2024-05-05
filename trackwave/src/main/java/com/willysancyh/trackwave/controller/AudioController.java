@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/audio")
@@ -36,11 +39,20 @@ public class AudioController {
         return new ResponseEntity<>(audioDto, HttpStatus.CREATED);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/get-streaming/{id}")
     public ResponseEntity<StreamingResponseBody> getAudioStreaming(
             @PathVariable Long audioId,
             @RequestHeader(value = "Range", required = false) String rangeHeader
     ) {
         return audioService.getAudioStreamingResponse(audioId, rangeHeader);
+    }
+
+    @GetMapping("/get")
+    public List<AudioDto> getAudio(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String author
+    ) {
+        List<AudioEntity> audioEntityList = audioService.getAudioEntityList(name, author);
+        return audioEntityList.stream().map(AudioDto::createFromEntity).toList();
     }
 }
