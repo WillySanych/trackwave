@@ -5,11 +5,12 @@
 <mapper namespace="com.willysancyh.trackwave.mapper.AudioEntityMapper">
 
     <resultMap id="AudioEntityMap" type="com.willysancyh.trackwave.entity.AudioEntity">
-          <result property="id"                  column="ID"/>
-          <result property="name"    column="NAME"/>
+          <result property="id"       column="ID"/>
+          <result property="name"     column="NAME"/>
           <result property="author"   column="AUTHOR"/>
           <association property="fileEntity" resultMap="com.willysancyh.trackwave.mapper.FileEntityMapper.FileEntityMap" columnPrefix="file_"/>
-        </resultMap>
+          <association property="authorEntity" resultMap="com.willysancyh.trackwave.mapper.AuthorEntityMapper.AuthorEntityMap" columnPrefix="author_"/>
+    </resultMap>
 
     <select id="findById" resultMap="AudioEntityMap">
         SELECT a.ID AS ID,
@@ -24,12 +25,14 @@
 
     <select id="findAllBySearchCondition" resultMap="AudioEntityMap">
         SELECT a.ID AS ID,
-            a.AUTHOR AS AUTHOR,
             a.NAME AS NAME,
             f.ID AS file_ID,
-            f.PATH as file_PATH
+            f.PATH as file_PATH,
+            auth.ID AS author_ID,
+            auth.NAME AS author_NAME
         FROM AUDIO a
         LEFT JOIN FILE f ON f.ID = a.FILE_ID
+        LEFT JOIN AUTHOR auth ON auth.ID = a.AUTHOR_ID
         WHERE 1 = 1
             ${searchCondition}
         ORDER BY a.ID

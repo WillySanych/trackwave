@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public class AudioEntityDao {
     private final String CONDITION_NAME = "AND a.NAME ILIKE '%%%s%%'";
-    private final String CONDITION_AUTHOR = "AND a.AUTHOR ILIKE '%%%s%%'";
+    private final String CONDITION_AUTHOR = "AND auth.NAME ILIKE '%%%s%%'";
 
     private final AudioEntityMapper audioEntityMapper;
 

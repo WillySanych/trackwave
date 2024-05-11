@@ -5,7 +5,7 @@ public class AudioEntity {
     private Long id;
     private FileEntity fileEntity;
     private String name;
-    private String author;
+    private AuthorEntity authorEntity;
 
     public Long getId() {
         return id;
@@ -31,21 +31,21 @@ public class AudioEntity {
         this.name = name;
     }
 
-    public String getAuthor() {
-        return author;
+    public AuthorEntity getAuthorEntity() {
+        return authorEntity;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthorEntity(AuthorEntity authorEntity) {
+        this.authorEntity = authorEntity;
     }
 
     @Override
     public String toString() {
         return "AudioEntity{" +
                 "id=" + id +
-                ", file=" + fileEntity +
+                ", fileEntity=" + fileEntity +
                 ", name='" + name + '\'' +
-                ", author='" + author + '\'' +
+                ", authorEntity=" + authorEntity +
                 '}';
     }
 }

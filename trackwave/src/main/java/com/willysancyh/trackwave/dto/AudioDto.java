@@ -1,13 +1,14 @@
 package com.willysancyh.trackwave.dto;
 
 import com.willysancyh.trackwave.entity.AudioEntity;
+import com.willysancyh.trackwave.entity.AuthorEntity;
 import com.willysancyh.trackwave.entity.FileEntity;
 
 public class AudioDto {
     private Long id;
-    private FileDto fileDto;
+    private FileDto file;
     private String name;
-    private String author;
+    private AuthorDto author;
 
     public Long getId() {
         return id;
@@ -17,12 +18,12 @@ public class AudioDto {
         this.id = id;
     }
 
-    public FileDto getFileDto() {
-        return fileDto;
+    public FileDto getFile() {
+        return file;
     }
 
-    public void setFileDto(FileDto fileDto) {
-        this.fileDto = fileDto;
+    public void setFile(FileDto file) {
+        this.file = file;
     }
 
     public String getName() {
@@ -33,23 +34,29 @@ public class AudioDto {
         this.name = name;
     }
 
-    public String getAuthor() {
+    public AuthorDto getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(AuthorDto author) {
         this.author = author;
     }
 
     public static AudioDto createFromEntity(AudioEntity audioEntity) {
         AudioDto dto = new AudioDto();
         dto.setId(audioEntity.getId());
-        dto.setAuthor(audioEntity.getAuthor());
         dto.setName(audioEntity.getName());
+
+        AuthorEntity authorEntity = audioEntity.getAuthorEntity();
+        if (authorEntity != null) {
+            dto.setAuthor(AuthorDto.createFromEntity(authorEntity));
+        }
+
         FileEntity fileEntity = audioEntity.getFileEntity();
         if (fileEntity != null) {
-            dto.setFileDto(FileDto.createFromEntity(fileEntity));
+            dto.setFile(FileDto.createFromEntity(fileEntity));
         }
+
         return dto;
     }
 
@@ -57,9 +64,9 @@ public class AudioDto {
     public String toString() {
         return "AudioDto{" +
                 "id=" + id +
-                ", fileDto=" + fileDto +
+                ", file=" + file +
                 ", name='" + name + '\'' +
-                ", author='" + author + '\'' +
+                ", author=" + author +
                 '}';
     }
 }
