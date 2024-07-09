@@ -6,5 +6,6 @@ import org.springframework.http.HttpHeaders;
 
 public interface HeadersService {
     public RangeHeaderModel getRangeHeaderModel(String rangeHeader, FileEntity fileEntity);
+
     public HttpHeaders getHeadersForFile(RangeHeaderModel rangeHeaderModel, FileEntity fileEntity);
 }

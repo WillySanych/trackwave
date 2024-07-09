@@ -10,8 +10,8 @@ import java.util.Optional;
 
 @Repository
 public class AudioEntityDao {
-    private final String CONDITION_NAME = "AND a.NAME ILIKE '%%%s%%'";
-    private final String CONDITION_AUTHOR = "AND auth.NAME ILIKE '%%%s%%'";
+    private final String CONDITION_SEARCH_TEXT = "AND (a.NAME ILIKE '%%%1$s%%' OR auth.NAME ILIKE '%%%1$s%%')";
+    private final String CONDITION_LIMIT = " LIMIT 10";
 
     private final AudioEntityMapper audioEntityMapper;
 
@@ -23,16 +23,13 @@ public class AudioEntityDao {
         return Optional.ofNullable(audioEntityMapper.findById(id));
     }
 
-    public List<AudioEntity> findAll(String name, String author) {
+    public List<AudioEntity> findBySearchText(String searchText) {
         StringBuilder searchCondition = new StringBuilder();
-        if (StringUtils.hasText(name)) {
-            searchCondition.append(String.format(CONDITION_NAME, name));
-        }
-        if (StringUtils.hasText(author)) {
-            searchCondition.append(String.format(CONDITION_AUTHOR, author));
+        if (StringUtils.hasText(searchText)) {
+            searchCondition.append(String.format(CONDITION_SEARCH_TEXT, searchText));
         }
 
-        return audioEntityMapper.findAllBySearchCondition(searchCondition.toString());
+        return audioEntityMapper.findAllBySearchCondition(searchCondition.toString(), CONDITION_LIMIT);
     }
 
     public AudioEntity saveAudioEntity(AudioEntity audioEntity) {

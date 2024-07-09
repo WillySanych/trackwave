@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface AudioService {
     public ResponseEntity<StreamingResponseBody> getAudioStreamingResponse(Long audioId, String rangeHeader);
+
     public AudioEntity saveAudioEntity(MultipartFile audioFile);
-    public List<AudioEntity> getAudioEntityList(String name, String author);
+
+    public List<AudioEntity> getAudioEntityList(String searchText);
 }

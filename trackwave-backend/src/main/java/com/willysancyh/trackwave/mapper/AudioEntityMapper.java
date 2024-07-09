@@ -9,6 +9,11 @@ import java.util.List;
 @Mapper
 public interface AudioEntityMapper {
     public AudioEntity findById(@Param("id") Long id);
-    public List<AudioEntity> findAllBySearchCondition(@Param("searchCondition") String searchCondition);
+
+    public List<AudioEntity> findAllBySearchCondition(
+            @Param("searchCondition") String searchCondition,
+            @Param("limitCondition") String limitCondition
+    );
+
     public void insertAudioEntity(AudioEntity audioEntity);
 }

@@ -36,6 +36,7 @@
         WHERE 1 = 1
             ${searchCondition}
         ORDER BY a.ID
+        ${limitCondition}
     </select>
 
     <insert id="insertAudioEntity" keyColumn="id" keyProperty="id" parameterType="com.willysancyh.trackwave.entity.AudioEntity">

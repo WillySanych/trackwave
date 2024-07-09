@@ -55,7 +55,7 @@ public class AudioServiceImpl implements AudioService {
     }
 
     @Override
-    public List<AudioEntity> getAudioEntityList(String name, String author) {
-        return audioEntityDao.findAll(name, author);
+    public List<AudioEntity> getAudioEntityList(String searchText) {
+        return audioEntityDao.findBySearchText(searchText);
     }
 }

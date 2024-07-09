@@ -1,0 +1,18 @@
+<trackwave-navbar/>
+
+<div class="container">
+    <form [formGroup]="form" class="input-group">
+        <input type="text" class="form-control" formControlName="searchText">
+        <span class="input-group-text">
+            <img src="assets/icons/search.svg">
+        </span>
+    </form>
+</div>
+
+<div class="container">
+    <div class="list-group" *ngFor="let music of (musicList$ | async)">
+        <p>{{ music.name }}</p>
+    </div>
+</div>
+
+<trackwave-player/>

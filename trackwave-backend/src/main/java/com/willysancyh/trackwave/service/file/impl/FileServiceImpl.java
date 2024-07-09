@@ -28,7 +28,7 @@ public class FileServiceImpl implements FileService {
     public FileServiceImpl(
             StorageProperties storageProperties,
             FileEntityDao fileEntityDao
-            ) {
+    ) {
         this.storageProperties = storageProperties;
         this.fileEntityDao = fileEntityDao;
     }
