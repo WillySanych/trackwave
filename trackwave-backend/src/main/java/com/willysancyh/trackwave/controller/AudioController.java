@@ -1,8 +1,11 @@
 package com.willysancyh.trackwave.controller;
 
 import com.willysancyh.trackwave.dto.AudioDto;
+import com.willysancyh.trackwave.dto.AudioUploadDto;
 import com.willysancyh.trackwave.entity.AudioEntity;
 import com.willysancyh.trackwave.service.audio.AudioService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,6 +27,7 @@ import java.util.List;
 @CrossOrigin("*")
 public class AudioController {
 
+    private static final Logger log = LoggerFactory.getLogger(AudioController.class);
     private final AudioService audioService;
 
     public AudioController(
@@ -34,16 +38,18 @@ public class AudioController {
 
     @PostMapping("/upload")
     public ResponseEntity<AudioDto> uploadAudio(
-            @RequestPart("file") MultipartFile audioFile
+            @RequestPart("file") MultipartFile audioFile,
+            @RequestPart("audio_upload") AudioUploadDto audioUploadDto
     ) {
-        AudioEntity audioEntity = audioService.saveAudioEntity(audioFile);
+        log.info(audioUploadDto.toString());
+        AudioEntity audioEntity = audioService.saveAudioEntity(audioFile, audioUploadDto);
         AudioDto audioDto = AudioDto.createFromEntity(audioEntity);
         return new ResponseEntity<>(audioDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/get-streaming/{id}")
     public ResponseEntity<StreamingResponseBody> getAudioStreaming(
-            @PathVariable Long audioId,
+            @PathVariable("id") Long audioId,
             @RequestHeader(value = "Range", required = false) String rangeHeader
     ) {
         return audioService.getAudioStreamingResponse(audioId, rangeHeader);

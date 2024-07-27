@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from '../../../share/navbar/navbar.component';
-import { PlayerComponent } from '../../../share/player/player.component';
+import { NavbarComponent } from 'src/app/share/navbar/navbar.component';
+import { PlayerComponent } from 'src/app/share/player/components/player/player.component';
 import { Store, select } from '@ngrx/store';
 import { isLoadingSelector, musicListSelector } from 'src/app/music-search/store/selectors';
 import { EMPTY, Observable } from 'rxjs';
-import { MusicInterface } from 'src/app/music-search/types/music.interface';
+import { MusicInterface } from 'src/app/share/types/music.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { getMusicAction } from 'src/app/music-search/store/actions/getMusic.action';
 import { MusicRequestInterface } from 'src/app/music-search/types/music.request.interface';
 import { CommonModule } from '@angular/common';
+import { musicSelectAction } from 'src/app/share/player/store/actions/musicSelect.action';
 
 @Component({
   selector: 'trackwave-music-search',
@@ -48,5 +49,9 @@ export class MusicSearchComponent implements OnInit {
   initValues(): void {
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     this.musicList$ = this.store.pipe(select(musicListSelector));
+  }
+
+  onMusicSelect(selectedMusic: MusicInterface) {
+    this.store.dispatch(musicSelectAction({selectedMusic}));
   }
 }

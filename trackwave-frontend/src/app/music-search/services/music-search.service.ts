@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MusicInterface } from 'src/app/music-search/types/music.interface';
 import { MusicRequestInterface } from 'src/app/music-search/types/music.request.interface';
+import { MusicInterface } from 'src/app/share/types/music.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

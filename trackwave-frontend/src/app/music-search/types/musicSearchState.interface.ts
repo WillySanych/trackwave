@@ -1,4 +1,5 @@
-import { MusicInterface } from "src/app/music-search/types/music.interface";
+import { MusicInterface } from "src/app/share/types/music.interface";
+
 
 export interface MusicSearchStateInterface {
     isLoading: boolean,

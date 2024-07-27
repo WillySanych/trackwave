@@ -49,7 +49,7 @@ public class FileServiceImpl implements FileService {
         final long rangeFrom = rangeHeaderModel.getRangeFrom();
         final long rangeTo = rangeHeaderModel.getRangeTo();
 
-        File file = new File(fileEntity.getPath());
+        File file = new File(storageProperties.getLocation() + "/" + fileEntity.getPath());
 
         StreamingResponseBody responseStream = outputStream -> {
             RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");

@@ -7,5 +7,6 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 
 public interface FileService {
     public StreamingResponseBody getFileStream(FileEntity fileEntity, RangeHeaderModel rangeHeaderModel);
+
     public FileEntity saveFileToStorage(MultipartFile multipartFile);
 }

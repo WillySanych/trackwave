@@ -8,4 +8,12 @@
         <result property="id" column="ID"/>
         <result property="name" column="NAME"/>
     </resultMap>
+
+    <insert id="insertAuthorEntity" keyColumn="id" keyProperty="id" parameterType="com.willysancyh.trackwave.entity.AuthorEntity">
+        <selectKey keyProperty="id" resultType="java.lang.Long" order="BEFORE">
+            SELECT nextval('AUTHOR_SEQ')
+        </selectKey>
+        INSERT INTO AUTHOR(ID, NAME)
+        VALUES (#{id}, #{name})
+    </insert>
 </mapper>

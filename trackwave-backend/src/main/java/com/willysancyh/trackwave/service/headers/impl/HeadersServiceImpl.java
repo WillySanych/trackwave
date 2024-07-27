@@ -2,6 +2,7 @@ package com.willysancyh.trackwave.service.headers.impl;
 
 import com.willysancyh.trackwave.entity.FileEntity;
 import com.willysancyh.trackwave.model.RangeHeaderModel;
+import com.willysancyh.trackwave.properties.StorageProperties;
 import com.willysancyh.trackwave.service.headers.HeadersService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,18 @@ public class HeadersServiceImpl implements HeadersService {
     //TODO move out to properties
     private final Integer partialFileSize = 4096000;
 
+    private final StorageProperties storageProperties;
+
+    public HeadersServiceImpl(StorageProperties storageProperties) {
+        this.storageProperties = storageProperties;
+    }
+
     @Override
     public RangeHeaderModel getRangeHeaderModel(String rangeHeader, FileEntity fileEntity) {
         long rangeFrom = getRangeFrom(rangeHeader);
         long rangeTo = getRangeTo(rangeHeader);
 
-        File file = new File(fileEntity.getPath());
+        File file = new File(storageProperties.getLocation() + "/" + fileEntity.getPath());
         Path path = file.toPath();
         long fileSize = 0;
         try {
@@ -53,7 +60,7 @@ public class HeadersServiceImpl implements HeadersService {
 
     @Override
     public HttpHeaders getHeadersForFile(RangeHeaderModel rangeHeaderModel, FileEntity fileEntity) {
-        File file = new File(fileEntity.getPath());
+        File file = new File(storageProperties.getLocation() + "/" + fileEntity.getPath());
         Path path = file.toPath();
 
         String contentType = null;

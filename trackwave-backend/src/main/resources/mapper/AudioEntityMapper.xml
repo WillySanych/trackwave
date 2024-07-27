@@ -7,20 +7,21 @@
     <resultMap id="AudioEntityMap" type="com.willysancyh.trackwave.entity.AudioEntity">
           <result property="id"       column="ID"/>
           <result property="name"     column="NAME"/>
-          <result property="author"   column="AUTHOR"/>
           <association property="fileEntity" resultMap="com.willysancyh.trackwave.mapper.FileEntityMapper.FileEntityMap" columnPrefix="file_"/>
           <association property="authorEntity" resultMap="com.willysancyh.trackwave.mapper.AuthorEntityMapper.AuthorEntityMap" columnPrefix="author_"/>
     </resultMap>
 
     <select id="findById" resultMap="AudioEntityMap">
         SELECT a.ID AS ID,
-               a.AUTHOR AS AUTHOR,
                a.NAME AS NAME,
                f.ID AS file_ID,
-               f.PATH as file_PATH
+               f.PATH as file_PATH,
+               auth.ID AS author_ID,
+               auth.NAME AS author_NAME
         FROM AUDIO a
         LEFT JOIN FILE f ON f.ID = a.FILE_ID
-        WHERE a.ID = {id}
+        LEFT JOIN AUTHOR auth ON auth.ID = a.AUTHOR_ID
+        WHERE a.ID = #{id}
     </select>
 
     <select id="findAllBySearchCondition" resultMap="AudioEntityMap">
@@ -43,7 +44,7 @@
         <selectKey keyProperty="id" resultType="java.lang.Long" order="BEFORE">
             SELECT nextval('AUDIO_SEQ')
         </selectKey>
-        INSERT INTO AUDIO(ID, FILE_ID, AUTHOR, NAME)
-        VALUES (#{id}, #{fileEntity.id}, #{author}, #{name})
+        INSERT INTO AUDIO(ID, FILE_ID, AUTHOR_ID, NAME)
+        VALUES (#{id}, #{fileEntity.id}, #{authorEntity.id}, #{name})
     </insert>
 </mapper>

@@ -10,7 +10,7 @@
 </div>
 
 <div class="container">
-    <div class="list-group" *ngFor="let music of (musicList$ | async)">
+    <div class="list-group" *ngFor="let music of (musicList$ | async)" (click)="onMusicSelect(music)">
         <p>{{ music.name }}</p>
     </div>
 </div>

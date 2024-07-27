@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, of, switchMap } from "rxjs";
 import { MusicSearchService } from "src/app/music-search/services/music-search.service";
 import { getMusicAction, getMusicActionFailure, getMusicActionSuccess } from "src/app/music-search/store/actions/getMusic.action";
-import { MusicInterface } from "src/app/music-search/types/music.interface";
+import { MusicInterface } from "src/app/share/types/music.interface";
 
 @Injectable()
 export class GetMusicListEffect {
