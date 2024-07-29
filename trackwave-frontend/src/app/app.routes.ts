@@ -5,6 +5,7 @@ import { musicSearchFeatureKey, musicSearchReducer } from 'src/app/music-search/
 import { provideEffects } from '@ngrx/effects';
 import { GetMusicListEffect } from 'src/app/music-search/store/effects/getMusicList.effect';
 import { provideHttpClient } from '@angular/common/http';
+import { MusicUploadComponent } from 'src/app/music-upload/components/music-upload/music-upload.component';
 
 export const routes: Routes = [
     {
@@ -14,5 +15,18 @@ export const routes: Routes = [
             provideState(musicSearchFeatureKey, musicSearchReducer),
             provideEffects(GetMusicListEffect),
         ]
-    }
+    },
+    {
+        path: 'music-upload',
+        component: MusicUploadComponent,
+    },
+    {
+        path: '',
+        redirectTo: 'music-search',
+        pathMatch: 'full'
+    },
+    // {
+    //     path: '**',
+    //     component: NotFound
+    // }
 ];

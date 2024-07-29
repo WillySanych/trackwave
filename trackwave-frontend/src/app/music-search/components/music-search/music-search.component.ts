@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from 'src/app/share/navbar/navbar.component';
-import { PlayerComponent } from 'src/app/share/player/components/player/player.component';
 import { Store, select } from '@ngrx/store';
 import { isLoadingSelector, musicListSelector } from 'src/app/music-search/store/selectors';
-import { EMPTY, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MusicInterface } from 'src/app/share/types/music.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { getMusicAction } from 'src/app/music-search/store/actions/getMusic.action';
@@ -14,7 +12,7 @@ import { musicSelectAction } from 'src/app/share/player/store/actions/musicSelec
 @Component({
   selector: 'trackwave-music-search',
   standalone: true,
-  imports: [NavbarComponent, PlayerComponent, ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './music-search.component.html',
   styleUrl: './music-search.component.scss'
 })
