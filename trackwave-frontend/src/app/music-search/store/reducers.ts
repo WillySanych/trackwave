@@ -8,7 +8,7 @@ const initialState: MusicSearchStateInterface = {
     error: null
 }
 
-export const musicSearchFeatureKey: string = "music-search";
+export const musicSearchFeatureKey: string = 'music-search';
 
 export const musicSearchReducer = createReducer(
     initialState,
@@ -25,6 +25,7 @@ export const musicSearchReducer = createReducer(
         (state, action): MusicSearchStateInterface => ({
             ...state,
             musicList: action.musicResponse,
+            isLoading: false,
             error: false
         }) 
     ),
@@ -33,6 +34,7 @@ export const musicSearchReducer = createReducer(
         (state): MusicSearchStateInterface => ({
             ...state,
             musicList: null,
+            isLoading: false,
             error: true
         })
     )

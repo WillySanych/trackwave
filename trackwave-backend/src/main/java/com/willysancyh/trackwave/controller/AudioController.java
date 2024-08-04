@@ -39,7 +39,7 @@ public class AudioController {
     @PostMapping("/upload")
     public ResponseEntity<AudioDto> uploadAudio(
             @RequestPart("file") MultipartFile audioFile,
-            @RequestPart("audio_upload") AudioUploadDto audioUploadDto
+            AudioUploadDto audioUploadDto
     ) {
         log.info(audioUploadDto.toString());
         AudioEntity audioEntity = audioService.saveAudioEntity(audioFile, audioUploadDto);
@@ -56,10 +56,11 @@ public class AudioController {
     }
 
     @GetMapping("/get")
-    public List<AudioDto> getAudio(
+    public ResponseEntity<List<AudioDto>> getAudio(
             @RequestParam(required = false) String searchText
     ) {
         List<AudioEntity> audioEntityList = audioService.getAudioEntityList(searchText);
-        return audioEntityList.stream().map(AudioDto::createFromEntity).toList();
+        List<AudioDto> audioDtoList = audioEntityList.stream().map(AudioDto::createFromEntity).toList();
+        return new ResponseEntity<>(audioDtoList, HttpStatus.CREATED);
     }
 }

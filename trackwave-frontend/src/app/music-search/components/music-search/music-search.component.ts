@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 import { MusicInterface } from 'src/app/share/types/music.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { getMusicAction } from 'src/app/music-search/store/actions/getMusic.action';
-import { MusicRequestInterface } from 'src/app/music-search/types/music.request.interface';
 import { CommonModule } from '@angular/common';
 import { musicSelectAction } from 'src/app/share/player/store/actions/musicSelect.action';
+import { MusicRequestInterface } from 'src/app/music-search/types/musicRequest.interface';
 
 @Component({
   selector: 'trackwave-music-search',
