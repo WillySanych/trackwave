@@ -3,6 +3,6 @@
         <input type="text" placeholder="Автор" formControlName="author" />
         <input type="text" placeholder="Название" formControlName="name" />
         <input type="file" (change)="onFileSelect($event)" />
-        <button type="submit">Загрузить</button>
+        <button type="submit" [disabled]="!form.valid">Загрузить</button>
     </form>
 </div>

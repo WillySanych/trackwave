@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { musicUploadAction } from 'src/app/music-upload/store/actions/musicUpload.action';
 import { MusicUploadRequestInterface } from 'src/app/music-upload/types/musicUploadRequest.interface';
@@ -27,9 +27,9 @@ export class MusicUploadComponent implements OnInit {
   
   initForm() {
     this.form = this.fb.group({
-      author: "",
-      name: "",
-      file: null
+      author: ['', Validators.required],
+      name: ['', Validators.required],
+      file: ['', Validators.required]
     });
   }
   
