@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0" author="willysanych">
+    <sql>
+        CREATE SEQUENCE AUDIO_SEQ
+        INCREMENT 1
+        START 1
+        MINVALUE 1;
+
+        CREATE SEQUENCE FILE_SEQ
+        INCREMENT 1
+        START 1
+        MINVALUE 1;
+
+        CREATE SEQUENCE AUTHOR_SEQ
+        INCREMENT 1
+        START 1
+        MINVALUE 1;
+
+        CREATE TABLE AUDIO (
+        ID BIGINT,
+        FILE_ID BIGINT,
+        AUTHOR_ID BIGINT,
+        NAME VARCHAR
+        );
+
+        CREATE TABLE FILE (
+        ID BIGINT,
+        PATH VARCHAR
+        );
+
+        CREATE TABLE AUTHOR (
+        ID BIGINT,
+        NAME VARCHAR
+        );
+
+        ALTER TABLE AUDIO ADD CONSTRAINT AUDIO_PK PRIMARY KEY (ID);
+
+        ALTER TABLE FILE ADD CONSTRAINT FILE_PK PRIMARY KEY (ID);
+
+        ALTER TABLE AUTHOR ADD CONSTRAINT AUTHOR_PK PRIMARY KEY (ID);
+
+        ALTER TABLE AUDIO ADD CONSTRAINT AUDIO_FILE_FK FOREIGN KEY (FILE_ID) REFERENCES FILE(ID);
+
+        ALTER TABLE AUDIO ADD CONSTRAINT AUTHOR_AUDIO_FK FOREIGN KEY (AUTHOR_ID) REFERENCES AUTHOR(ID);
+    </sql>
+    </changeSet>
+</databaseChangeLog>

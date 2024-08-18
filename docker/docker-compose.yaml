@@ -12,4 +12,40 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
+    networks:
+      - trackwave
 
+  trackwave-backend:
+    container_name: trackwave-backend
+    build: ../trackwave-backend/
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pgsql:5432/trackwave
+      SPRING_DATASOURCE_USERNAME: docker
+      SPRING_DATASOURCE_PASSWORD: docker
+    volumes:
+      - ./storage:/app/storage
+    restart: unless-stopped
+    depends_on:
+      - pgsql
+    networks:
+      - trackwave
+
+  trackwave-frontend:
+    container_name: trackwave-frontend
+    build: ../trackwave-frontend/
+    ports:
+      - 4200:80
+    environment:
+      NGINX_ENVSUBST_OUTPUT_DIR: /etc/nginx/
+      API_URL: http://trackwave-backend:8080
+    depends_on:
+      - trackwave-backend
+    restart: unless-stopped
+    networks:
+      - trackwave
+
+networks:
+  trackwave:
+    

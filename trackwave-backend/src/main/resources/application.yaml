@@ -8,6 +8,8 @@ spring:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/trackwave}
     username: ${SPRING_DATASOURCE_USERNAME:docker}
     password: ${SPRING_DATASOURCE_PASSWORD:docker}
+  liquibase:
+    change-log: db/changelog/db.changelog-master.xml
 
 mybatis:
   type-aliases-package: sbm.domain
