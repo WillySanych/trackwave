@@ -1,0 +1,38 @@
+services:
+  keycloak-postgres:
+    container_name: keycloak-postgres
+    image: postgres:16.2-alpine
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      PGDATA: /data/postgres
+      POSTGRES_DB: keycloack
+    volumes:
+      - ./pgdata/keycloack/:/data/postgres
+    ports:
+      - ${KC_POSTGRES_PORT_MAPPING:-54321}:5432
+    restart: unless-stopped
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.7
+    container_name: keycloak
+    command:
+      start --import-realm
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-postgres:5432/keycloack
+      KC_DB_USERNAME: docker
+      KC_DB_PASSWORD: docker
+      KC_DB_SCHEMA: public
+
+      KC_FEATURES: preview
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HTTP_ENABLED: true
+    ports:
+      - 8282:8080
+    restart: unless-stopped
+    depends_on:
+      - keycloak-postgres
