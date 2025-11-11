@@ -1,0 +1,96 @@
+$player-height: 90px;
+$primary-text-color: #ffffff;
+$accent-color: #1DB954;
+$secondary-text-color: #b3b3b3;
+$surface-color: #1e1e1e;
+$border-color: #4d4d4d;
+$border-color-light: rgba(255, 255, 255, 0.1);
+
+// --- Плеер ---
+.music-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: $player-height;
+    background-color: $surface-color;
+    border-top: 1px solid $border-color-light;
+    z-index: 1030; /* Выше чем у navbar */
+
+    .player-controls {
+        .btn-control {
+            color: $secondary-text-color;
+            font-size: 1.5rem;
+            transition: all 0.2s ease;
+
+            &:hover {
+                color: $primary-text-color;
+                transform: scale(1.1);
+            }
+        }
+
+        .btn-play {
+            font-size: 2.5rem;
+            color: $primary-text-color;
+
+            &:hover {
+                color: $accent-color;
+            }
+        }
+    }
+
+    .progress {
+        height: 4px;
+        background-color: $border-color;
+    }
+
+    .progress-bar {
+        background-color: $accent-color;
+    }
+
+    .current-track-art {
+        width: 56px;
+        height: 56px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+}
+
+// --- Кастомизация слайдера громкости ---
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 4px;
+    background: $border-color;
+    border-radius: 5px;
+    outline: none;
+    transition: opacity 0.2s;
+    cursor: pointer;
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 14px;
+        height: 14px;
+        background: $primary-text-color;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    
+    &:hover::-webkit-slider-thumb {
+        background: $accent-color;
+    }
+
+    &::-moz-range-thumb {
+        width: 14px;
+        height: 14px;
+        background: $primary-text-color;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    &:hover::-moz-range-thumb {
+        background: $accent-color;
+    }
+}

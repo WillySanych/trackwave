@@ -17,14 +17,26 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   music$: Observable<MusicInterface | null>;
   audioSrcUrl: string;
-  musicSubscription: Subscription
+  musicSubscription: Subscription;
+
+  audioElement: HTMLAudioElement;
+
+  isPlaying: boolean = false;
+  currentTime: number = 0;
+  duration: number = 0;
+  volume: number = 1;
+  isMuted: boolean = false;
+  isLoading: boolean = false;
 
   constructor(
     private store: Store
-  ) {}
+  ) {
+    this.audioElement = new Audio();
+  }
 
   ngOnInit(): void {
     this.initValues();
+    this.initHandlers();
   }
 
   ngOnDestroy(): void {
@@ -37,4 +49,15 @@ export class PlayerComponent implements OnInit, OnDestroy {
       this.audioSrcUrl = `${environment.apiUrl}/audio/get-streaming/${music?.id}`
     });
   }
+
+  initHandlers() {
+    this.audioElement.addEventListener('loadedmetadata', () => {
+      this.duration = this.audioElement?.duration || 0;
+    });
+
+    this.audioElement.addEventListener('timeupdate', () => {
+        this.currentTime = this.audioElement?.currentTime || 0;
+      });
+  }
+
 }

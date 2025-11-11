@@ -8,22 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/audio")
+@RequestMapping(value = "/audio")
 @CrossOrigin("*")
 public class AudioController {
 
@@ -61,6 +53,13 @@ public class AudioController {
     ) {
         List<AudioEntity> audioEntityList = audioService.getAudioEntityList(searchText);
         List<AudioDto> audioDtoList = audioEntityList.stream().map(AudioDto::createFromEntity).toList();
-        return new ResponseEntity<>(audioDtoList, HttpStatus.CREATED);
+        return new ResponseEntity<>(audioDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/random")
+    public ResponseEntity<AudioDto> getRandomAudio() {
+        AudioEntity audioEntity = audioService.getRandomAudio();
+        AudioDto audioDto = AudioDto.createFromEntity(audioEntity);
+        return new ResponseEntity<>(audioDto, HttpStatus.OK);
     }
 }

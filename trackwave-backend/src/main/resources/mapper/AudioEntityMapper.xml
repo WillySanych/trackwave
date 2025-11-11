@@ -47,4 +47,19 @@
         INSERT INTO AUDIO(ID, FILE_ID, AUTHOR_ID, NAME)
         VALUES (#{id}, #{fileEntity.id}, #{authorEntity.id}, #{name})
     </insert>
+
+    <select id="findRandom" resultMap="AudioEntityMap">
+        SELECT a.ID AS ID,
+               a.NAME AS NAME,
+               f.ID AS file_ID,
+               f.PATH as file_PATH,
+               auth.ID AS author_ID,
+               auth.NAME AS author_NAME
+        FROM AUDIO a
+        LEFT JOIN FILE f ON f.ID = a.FILE_ID
+        LEFT JOIN AUTHOR auth ON auth.ID = a.AUTHOR_ID
+        WHERE ID >= (SELECT FLOOR(MAX(ID) * RANDOM()) FROM AUDIO)
+        ORDER BY ID
+        LIMIT 1
+    </select>
 </mapper>

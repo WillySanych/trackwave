@@ -1,8 +1,50 @@
-<div>
-    <form [formGroup]="form" class="input-group" (ngSubmit)="onSubmit()">
-        <input type="text" placeholder="Автор" formControlName="author" />
-        <input type="text" placeholder="Название" formControlName="name" />
-        <input type="file" (change)="onFileSelect($event)" />
-        <button type="submit" [disabled]="!form.valid">Загрузить</button>
+<!-- ОСНОВНОЙ КОНТЕНТ - ФОРМА ЗАГРУЗКИ -->
+<main class="container mt-5 pt-5">
+    <form [formGroup]="form" class="row justify-content-center" (ngSubmit)="onSubmit()" method="POST"
+        enctype="multipart/form-data">
+        <div class="col-lg-8 col-md-10">
+            <div class="upload-form-container">
+                <h2 class="mb-4 text-center">Загрузить трек</h2>
+                <div class="row g-4">
+                    <!-- Левая колонка: информация о треке -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="trackTitle" class="form-label">Название трека</label>
+                            <input type="text" class="form-control" id="trackTitle" formControlName="author" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="trackArtist" class="form-label">Исполнитель</label>
+                            <input type="text" class="form-control" id="trackArtist" formControlName="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="trackAlbum" class="form-label">Альбом (необязательно)</label>
+                            <input type="text" class="form-control" id="trackAlbum">
+                        </div>
+                        <div class="mb-3">
+                            <label for="trackFile" class="form-label">Аудиофайл</label>
+                            <input class="form-control" type="file" id="trackFile" accept="audio/*"
+                                (change)="onFileSelect($event)" required>
+                        </div>
+                    </div>
+
+                    <!-- Правая колонка: обложка -->
+                    <div class="col-md-6 d-flex flex-column">
+                        <label class="form-label">Обложка альбома</label>
+                        <div class="drop-zone flex-grow-1 d-flex flex-column justify-content-center">
+                            <i class="bi bi-cloud-arrow-up drop-zone__icon"></i>
+                            <p class="drop-zone__prompt">Перетащите файл сюда или нажмите для выбора</p>
+                            <span class="drop-zone__filename small text-white-50"></span>
+                            <input type="file" name="albumArt" class="drop-zone__input" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn upload-button" [disabled]="!form.valid">
+                        <i class="bi bi-upload me-2"></i>Загрузить
+                    </button>
+                </div>
+            </div>
+        </div>
     </form>
-</div>
+</main>

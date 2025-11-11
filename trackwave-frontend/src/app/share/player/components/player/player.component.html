@@ -1,3 +1,51 @@
 <div>
     <audio controls *ngIf="music$ | async" [src]="audioSrcUrl"></audio>
 </div>
+
+    <!-- НИЖНИЙ ПЛЕЕР -->
+    <footer class="music-player d-flex align-items-center px-3">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+
+                <!-- 1. ИНФОРМАЦИЯ О ТЕКУЩЕМ ТРЕКЕ (СЛЕВА) -->
+                <div class="col-md-3 d-flex align-items-center">
+                    <img src="https://placehold.co/100x100/1DB954/FFFFFF?text=A" alt="Current Track" class="current-track-art me-3">
+                    <div>
+                        <div class="track-title small">Blinding Lights</div>
+                        <div class="track-artist small">The Weeknd</div>
+                    </div>
+                     <i class="bi bi-heart ms-4 text-secondary"></i>
+                </div>
+
+                <!-- 2. ОСНОВНЫЕ ЭЛЕМЕНТЫ УПРАВЛЕНИЯ (ЦЕНТР) -->
+                <div class="col-md-6">
+                    <div class="d-flex flex-column align-items-center">
+                        <!-- Иконки управления -->
+                        <div class="player-controls d-flex align-items-center gap-3">
+                             <a href="#" class="btn-control"><i class="bi bi-shuffle"></i></a>
+                             <a href="#" class="btn-control"><i class="bi bi-skip-backward-fill"></i></a>
+                             <a href="#" class="btn-control btn-play"><i class="bi bi-play-circle-fill"></i></a>
+                             <a href="#" class="btn-control"><i class="bi bi-skip-forward-fill"></i></a>
+                             <a href="#" class="btn-control"><i class="bi bi-repeat"></i></a>
+                        </div>
+                        <!-- Прогресс-бар -->
+                        <div class="d-flex align-items-center w-100 gap-2" style="margin-top: -8px;">
+                           <span class="small text-secondary">1:24</span>
+                            <div class="progress w-100" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: 40%"></div>
+                            </div>
+                            <span class="small text-secondary">3:20</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. ДОПОЛНИТЕЛЬНЫЕ ЭЛЕМЕНТЫ (ГРОМКОСТЬ, ОЧЕРЕДЬ) (СПРАВА) -->
+                <div class="col-md-3 d-flex align-items-center justify-content-end gap-3">
+                     <i class="bi bi-mic-fill text-secondary"></i>
+                     <i class="bi bi-card-list text-secondary"></i>
+                     <i class="bi bi-volume-up-fill text-secondary"></i>
+                     <input type="range" class="form-range" min="0" max="100" value="75">
+                </div>
+            </div>
+        </div>
+    </footer>

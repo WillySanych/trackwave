@@ -16,4 +16,6 @@ public interface AudioEntityMapper {
     );
 
     public void insertAudioEntity(AudioEntity audioEntity);
+
+    public AudioEntity findRandom();
 }

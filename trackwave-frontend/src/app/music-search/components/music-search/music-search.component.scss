@@ -1,0 +1,78 @@
+$surface-color: #1e1e1e;
+$primary-text-color: #ffffff;
+$secondary-text-color: #b3b3b3;
+$accent-color: #1DB954;
+$border-color: #4d4d4d;
+$border-color-light: rgba(255, 255, 255, 0.1);
+// --- Основной контент ---
+.track-list {
+    .list-group-item {
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid $border-color-light;
+        color: $primary-text-color;
+        transition: background-color 0.2s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+// Стили для элементов внутри трека
+.track-number {
+    color: $secondary-text-color;
+    width: 30px;
+    text-align: center;
+}
+
+.track-album-art {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.track-title {
+    font-weight: 500;
+}
+
+.track-artist {
+    font-size: 0.9em;
+    color: $secondary-text-color;
+}
+
+.track-duration {
+    color: $secondary-text-color;
+}
+
+// --- Контейнер поиска ---
+.search-container {
+    .input-group-text {
+        background-color: $surface-color;
+        border-color: $border-color;
+        border-right: none;
+    }
+
+    .form-control {
+        background-color: $surface-color;
+        border-color: $border-color;
+        color: $primary-text-color;
+        border-left: none;
+        box-shadow: none;
+
+        &::placeholder {
+            color: $secondary-text-color;
+        }
+
+        &:focus {
+            border-color: $accent-color;
+            box-shadow: 0 0 0 0.2rem rgba(29, 185, 84, 0.5);
+        }
+    }
+}

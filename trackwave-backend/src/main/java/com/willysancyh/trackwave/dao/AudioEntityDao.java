@@ -36,4 +36,8 @@ public class AudioEntityDao {
         audioEntityMapper.insertAudioEntity(audioEntity);
         return audioEntity;
     }
+
+    public AudioEntity findRandom() {
+        return audioEntityMapper.findRandom();
+    }
 }

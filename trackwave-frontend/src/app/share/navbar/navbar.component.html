@@ -1,4 +1,39 @@
-<nav>
-    <a [routerLink]="['/music-search']">Поиск</a>
-    <a [routerLink]="['/music-upload']">Загрузка</a>
-</nav>
+    <!-- НАВИГАЦИЯ -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <!-- 1. Кнопка выпадающего меню (отображается на мобильных) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- 2. Логотип приложения (идет сразу после кнопки) -->
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-music-note-beamed me-2"></i>MyMusic
+            </a>
+            <!-- 3. Сворачиваемая часть меню -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/music-search']">Поиск</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/music-upload']">Загрузка</a>
+                    </li>
+                </ul>
+                <!-- Кнопки управления аккаунтом -->
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="onAccountManagment()">Об аккаунте</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="onLogin()">Логин</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="onLogout()">Выход</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>

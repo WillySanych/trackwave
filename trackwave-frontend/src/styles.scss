@@ -1,1 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
+// --- Переменные ---
+$background-color: #121212;
+$surface-color: #1e1e1e;
+$primary-text-color: #ffffff;
+$secondary-text-color: #b3b3b3;
+$accent-color: #1DB954;
+$player-height: 90px;
+$border-color: #4d4d4d;
+$border-color-light: rgba(255, 255, 255, 0.1);
+
+/* Light */
+@font-face {
+  font-family: 'Poppins';
+  src: url('/assets/fonts/Poppins-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/assets/fonts/Poppins-Regular.woff2') format('woff2'); /* Путь к вашему файлу */
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Medium */
+@font-face {
+  font-family: 'Poppins';
+  src: url('/assets/fonts/Poppins-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Semi-Bold */
+@font-face {
+  font-family: 'Poppins';
+  src: url('/assets/fonts/Poppins-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/assets/fonts/Poppins-Bold.woff2') format('woff2'); /* Путь к вашему файлу */
+  font-weight: 700;
+  font-style: normal;
+}
+
+// --- Базовые стили ---
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: $background-color;
+    color: $primary-text-color;
+    // Добавляем отступ снизу, чтобы контент не перекрывался плеером
+    padding-bottom: $player-height;
+}

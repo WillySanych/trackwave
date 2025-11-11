@@ -14,4 +14,6 @@ public interface AudioService {
     public AudioEntity saveAudioEntity(MultipartFile audioFile, AudioUploadDto audioUploadDto);
 
     public List<AudioEntity> getAudioEntityList(String searchText);
+
+    AudioEntity getRandomAudio();
 }

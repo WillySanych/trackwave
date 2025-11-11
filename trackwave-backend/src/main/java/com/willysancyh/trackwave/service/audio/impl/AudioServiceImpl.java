@@ -71,4 +71,9 @@ public class AudioServiceImpl implements AudioService {
     public List<AudioEntity> getAudioEntityList(String searchText) {
         return audioEntityDao.findBySearchText(searchText);
     }
+
+    @Override
+    public AudioEntity getRandomAudio() {
+        return audioEntityDao.findRandom();
+    }
 }
